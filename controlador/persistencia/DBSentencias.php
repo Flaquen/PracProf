@@ -11,8 +11,34 @@
  * @author Flaco
  */
 interface DBSentencias {
+    const CHECK_USER = "SELECT * FROM usuario WHERE usuario_usuario = ?";
     const BUSCAR_CLIENTES = "SELECT * FROM cliente WHERE fch_baja = '0000-00-00 00:00:00'";
     const BUSCAR_ARTS = "SELECT * FROM art WHERE fch_baja = '0000-00-00 00:00:00'";
+    const BUSCAR_ASISTENTES = "SELECT * FROM asistente WHERE fch_baja = '0000-00-00 00:00:00'";
+    const BUSCAR_PROFESIONALES = "SELECT * FROM profesional WHERE fch_baja = '0000-00-00 00:00:00'";
+    const BUSCAR_CASOS = "SELECT * FROM caso INNER JOIN cliente ON caso.id_cliente = cliente.id_cliente INNER JOIN 
+        profesional ON caso.id_profesional = profesional.id_profesional INNER JOIN asistente ON caso.id_asistente 
+        = asistente.id_asistente INNER JOIN art ON caso.id_art = art.id_art WHERE caso.fch_baja = '0000-00-00 00:00:00' 
+        AND cliente.fch_baja = '0000-00-00 00:00:00'";
+    const BUSCAR_UN_CASO = "SELECT * FROM caso INNER JOIN cliente ON caso.id_cliente = cliente.id_cliente INNER JOIN 
+        profesional ON caso.id_profesional = profesional.id_profesional INNER JOIN asistente ON caso.id_asistente 
+        = asistente.id_asistente INNER JOIN art ON caso.id_art = art.id_art WHERE caso.fch_baja = '0000-00-00 00:00:00' 
+        AND cliente.fch_baja = '0000-00-00 00:00:00' AND caso.id_caso = ?";
+    
+    const ELIMINAR_CASO = "UPDATE caso SET fch_baja = ? WHERE id_caso = ?";
+    const ELIMINAR_CLIENTE = "UPDATE cliente SET fch_baja = ? WHERE id_cliente = ?";
+    const INSERTAR_CLIENTE = "INSERT INTO cliente(nombre_cliente, apellido_cliente, dni_cliente, direccion_cliente, 
+        fecha_nacimiento_cliente, id_usuario, fch_creacion) VALUES(?,?,?,?,?,?,?)";
+    const BUSCAR_UN_CLIENTE = "SELECT * FROM cliente WHERE fch_baja = '0000-00-00 00:00:00' AND id_cliente = ?"; 
+    const BUSCAR_TELEFONOS_DE_UN_CLIENTE = "SELECT * FROM telefono WHERE fch_baja = '0000-00-00 00:00:00' AND id_cliente = ?";
+    const ULTIMO_CLIENTE = "SELECT MAX(id_cliente) FROM cliente";
+    const ACTUALIZAR_UN_CLIENTE = "UPDATE cliente SET nombre_cliente = ?, apellido_cliente = ?, dni_cliente = ?, direccion_cliente = ?, fecha_nacimiento_cliente = ?, id_usuario = ?, fch_modificacion = ? WHERE id_cliente = ?";
+    const INSERTAR_TELEFONO = "INSERT INTO telefono(numero_telefono, propietario_telefono, detalle_telefono, id_cliente, 
+        id_usuario, fch_creacion) VALUES(?,?,?,?,?,?)";
+    const ACTUALIZAR_TELEFONO = "UPDATE telefono SET numero_telefono = ?, propietario_telefono = ?, detalle_telefono = ?,id_cliente = ?, id_usuario = ?, fch_modificacion = ? WHERE id_telefono = ?";
+    
+    const BUSCAR_NOMBRE_USUARIO = "SELECT * FROM usuario WHERE fch_baja = '0000-00-00 00:00:00' AND id_usuario = ?";
+    
 //    const INSERTAR_PERSONA = "INSERT INTO persona(nombre, apellido, titulo, legajo, tipo, FK_domicilio) VALUES(?,?,?,?,?,?)";
 //    
 //    const ELIMINAR_PERSONA = "DELETE FROM persona WHERE id = ?";

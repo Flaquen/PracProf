@@ -22,6 +22,11 @@ if (isset($_GET['accion']) && isset($_GET['nombreFormulario'])) {
 if (isset($_GET['id'])) {
     $id=$_GET['id'];
 }
+//CAMBIOS EN EL RUTEADOR POR FLACO
+if (isset($_GET['idCliente'])) {
+    $idCliente=$_GET['idCliente'];
+}
+//FIN DE CAMBIOS EN EL RUTEADOR POR FLACO
 require_once '../controladoresEspecificos/Controlador'.$nombreformulario.'.php'; //hago el include del controlador corresp
 $nombreControlador = "Controlador".$nombreformulario; //meto en una variable el nombre del controlador corresp
 $objControlador = new $nombreControlador(); //instancio
@@ -38,6 +43,12 @@ switch ($accion) {
         $resultado = $objControlador->$accion($datosCampos); //llamo a la acción
         echo json_encode($resultado);//arreglo json
         break;
+    //CAMBIOS EN EL RUTEADOR POR FLACO
+    case "buscarTelsDeUnCliente":
+        $resultado = $objControlador->$accion($idCliente); //llamo a la acción
+        echo json_encode($resultado);//arreglo json
+        break;
+    //FIN CAMBIOS EN EL RUTEADOR POR FLACO
     case "buscarX":
         $datos = ["criterio"=>$criterio, "valor"=>$valor];
         $resultado = $objControlador->$accion($datos); //llamo a la acción
